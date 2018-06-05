@@ -826,7 +826,7 @@ class S1C(device):
                     bytearray(sensors[i * 83:(i + 1) * 83])
                     for i in range(len(sensors) // 83)
                 ]
-                sens_res = []
+                sens_res = {}
                 for sens in sensors_a:
                     status = ord(chr(sens[0]))
                     _name = str(bytes(sens[4:26]).decode())
@@ -842,7 +842,7 @@ class S1C(device):
                         'serial': _serial,
                     }
                     if r['serial'] != '00000000':
-                        sens_res.append(r)
+                        sens_res[r['serial']]=r
                 result = {'count': count, 'sensors': sens_res}
                 return result
         else:
